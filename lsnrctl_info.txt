@@ -1,0 +1,15 @@
+﻿
+LSNRCTL for 64-bit Windows: Version 21.0.0.0.0 - Production on 29-MAR-2026 12:56:52
+
+Copyright (c) 1991, 2021, Oracle.  All rights reserved.
+
+Conectßndose a (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.198.170)(PORT=1521)))
+TNS-12535: TNS:timeout de la operaci¾n
+ TNS-12560: TNS:error del adaptador de protocolo
+  TNS-00505: Timeout de la operaci¾n
+   64-bit Windows Error: 60: Unknown error
+Conectßndose a (DESCRIPTION=(ADDRESS=(PROTOCOL=IPC)(KEY=EXTPROC1521)))
+TNS-12541: TNS:no hay ning·n listener
+ TNS-12560: TNS:error del adaptador de protocolo
+  TNS-00511: No hay ning·n listener
+   64-bit Windows Error: 2: No such file or directory

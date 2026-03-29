@@ -1,0 +1,11 @@
+﻿  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos est├ín actualizados para la restauraci├│n.
+C:\Program Files\dotnet\sdk\10.0.103\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.DefaultItems.targets(151,5): error NETSDK1136: La plataforma de destino debe establecerse en Windows (normalmente, se incluye "-windows" en la propiedad TargetFramework) cuando se use Windows┬áForms o WPF, o bien cuando se haga referencia a proyectos o paquetes que lo usen. [C:\Users\JUAN JOSE\Desktop\BASES DE DATOS\ProyectoCSharpOracle\MiProyectoCSharp.csproj]
+
+ERROR al compilar.
+
+C:\Program Files\dotnet\sdk\10.0.103\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.DefaultItems.targets(151,5): error NETSDK1136: La plataforma de destino debe establecerse en Windows (normalmente, se incluye "-windows" en la propiedad TargetFramework) cuando se use Windows┬áForms o WPF, o bien cuando se haga referencia a proyectos o paquetes que lo usen. [C:\Users\JUAN JOSE\Desktop\BASES DE DATOS\ProyectoCSharpOracle\MiProyectoCSharp.csproj]
+    0 Advertencia(s)
+    1 Errores
+
+Tiempo transcurrido 00:00:01.49

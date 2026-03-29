@@ -1,0 +1,81 @@
+﻿CREATE TABLE PaisAnfitrion (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Confederacion (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Grupo (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Usuario (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Bitacora (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Ciudad (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Estadio (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Equipo (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Equipo_Grupo (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE DirectorTecnico (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Jugador (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+CREATE TABLE Partido (
+             *
+ERROR en lÝnea 1:
+ORA-00955: este nombre ya lo estß utilizando otro objeto existente
+
+
+INSERT INTO Usuario (nombre_usuario, contrasena_hash, tipo_usuario)
+*
+ERROR en lÝnea 1:
+ORA-00001: restricci¾n ·nica (COPAMUNDIAL.SYS_C008329) violada
+
+
+
+Confirmaci¾n terminada.
+

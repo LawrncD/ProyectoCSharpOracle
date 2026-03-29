@@ -1,0 +1,9 @@
+Oracle.ManagedDataAccess.Client.OracleException (0x80004005): ORA-50000: Connection request timed out
+   at OracleInternal.ConnectionPool.PoolManager`3.Get(ConnectionString csWithDiffOrNewPassw, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch, Boolean bAsync)
+   at OracleInternal.ConnectionPool.OraclePoolManager.Get(ConnectionString csWithNewPassw, Boolean bGetForApp, OracleConnection connRefForCriteria, String affinityInstanceName, Boolean bForceMatch, Boolean bAsync)
+   at OracleInternal.ConnectionPool.OracleConnectionDispenser`3.Get(ConnectionString cs, PM conPM, ConnectionString pmCS, OracleOpaqueString opaquePassw, OracleOpaqueString securedProxyPassw, OracleConnection connRefForCriteria, Boolean bAsync)
+   at Oracle.ManagedDataAccess.Client.OracleConnectionInternal.OpenInternal(Boolean bAsync)
+   at Oracle.ManagedDataAccess.Client.OracleConnectionInternal.Open()
+   at Oracle.ManagedDataAccess.Client.OracleConnection.Open()
+   at MiProyectoCSharp.Helpers.DbConnectionHelper.GetConnection() in C:\Users\JUAN JOSE\Desktop\BASES DE DATOS\ProyectoCSharpOracle\Helpers\DbConnectionHelper.cs:line 18
+   at MiProyectoCSharp.Program.Main() in C:\Users\JUAN JOSE\Desktop\BASES DE DATOS\ProyectoCSharpOracle\Program.cs:line 16
