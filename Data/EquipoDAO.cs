@@ -15,6 +15,7 @@ namespace MiProyectoCSharp.Data
             using var connection = DbConnectionHelper.GetConnection();
             string sql = "SELECT id_equipo, nombre, pais, id_confederacion, valor_total_equipo FROM Equipo";
             using var cmd = new OracleCommand(sql, connection);
+            cmd.BindByName = true;
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -36,6 +37,7 @@ namespace MiProyectoCSharp.Data
             using var connection = DbConnectionHelper.GetConnection();
             string sql = "INSERT INTO Equipo (nombre, pais, id_confederacion, valor_total_equipo) VALUES (:nombre, :pais, :idConf, :valor)";
             using var cmd = new OracleCommand(sql, connection);
+            cmd.BindByName = true;
             cmd.Parameters.Add(new OracleParameter("nombre", equipo.Nombre));
             cmd.Parameters.Add(new OracleParameter("pais", equipo.Pais));
             cmd.Parameters.Add(new OracleParameter("idConf", equipo.IdConfederacion));
@@ -69,6 +71,7 @@ namespace MiProyectoCSharp.Data
                 )";
                 
             using var cmd = new OracleCommand(sql, connection);
+            cmd.BindByName = true;
             using var da = new OracleDataAdapter(cmd);
             da.Fill(dt);
             return dt;

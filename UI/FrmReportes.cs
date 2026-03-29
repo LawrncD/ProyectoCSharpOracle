@@ -11,40 +11,88 @@ namespace MiProyectoCSharp.UI
     {
         private Button btnReporteTotalConfederacion;
         private Button btnReportePaisesAnfitriones;
+        private ComboBox cmbConfederacion; // Para el punto 3
+
+        private ConfederacionDAO confedDAO = new ConfederacionDAO();
 
         public FrmReportes()
         {
             InitializeComponent();
+            CargarConfederaciones();
         }
 
         private void InitializeComponent()
         {
-            this.Text = "Generar Reportes PDF";
-            this.Size = new Size(400, 300);
+            this.Text = "Generar Reportes PDF de la Copa Mundial";
+            this.Size = new Size(500, 350);
             this.StartPosition = FormStartPosition.CenterParent;
+            this.BackColor = Color.FromArgb(245, 245, 240);
 
-            btnReporteTotalConfederacion = new Button()
+            var lblConf = new Label { 
+                Text = "Confederación:", 
+                Location = new Point(50, 43), 
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold)
+            };
+
+            cmbConfederacion = new ComboBox { 
+                Location = new Point(170, 40), 
+                Width = 260, 
+                DropDownStyle = ComboBoxStyle.DropDownList 
+            };
+
+            btnReporteTotalConfederacion = new Button
             {
-                Text = "Reporte: Valor Total Equipos x ConfederaciÃ³n",
-                Location = new Point(50, 50),
-                Size = new Size(280, 40)
+                Text = "Reporte: Valor Total Equipos x Confederación",
+                Location = new Point(50, 80),
+                Size = new Size(380, 40),
+                BackColor = Color.FromArgb(100, 95, 85),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                Cursor = Cursors.Hand
             };
             btnReporteTotalConfederacion.Click += BtnReporteTotalConfederacion_Click;
 
-            btnReportePaisesAnfitriones = new Button()
+            btnReportePaisesAnfitriones = new Button
             {
-                Text = "Reporte: PaÃ­ses Visitantes a Anfitriones",
-                Location = new Point(50, 110),
-                Size = new Size(280, 40)
+                Text = "Reporte: Países Visitantes a Anfitriones",
+                Location = new Point(50, 140),
+                Size = new Size(380, 40),
+                BackColor = Color.FromArgb(140, 135, 125),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                Cursor = Cursors.Hand
             };
             btnReportePaisesAnfitriones.Click += BtnReportePaisesAnfitriones_Click;
 
+            this.Controls.Add(lblConf);
+            this.Controls.Add(cmbConfederacion);
             this.Controls.Add(btnReporteTotalConfederacion);
             this.Controls.Add(btnReportePaisesAnfitriones);
         }
 
+        private void CargarConfederaciones()
+        {
+            try
+            {
+                var dt = confedDAO.ObtenerTodas();
+                cmbConfederacion.DisplayMember = "NOMBRE";
+                cmbConfederacion.ValueMember = "ID_CONFEDERACION";
+                cmbConfederacion.DataSource = dt;
+            }
+            catch { /* Ignoramos el error inicial */ }
+        }
+
         private void ExportarAPdf(DataTable dt, string titulo, string nombreArchivo)
         {
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay datos para exportar a PDF en esta consulta.", "Sin datos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using var sfd = new SaveFileDialog();
             sfd.Filter = "PDF Files | *.pdf";
             sfd.FileName = nombreArchivo;
@@ -53,33 +101,44 @@ namespace MiProyectoCSharp.UI
                 try
                 {
                     PdfReportGenerator.GenerarReporteDesdeDataTable(dt, titulo, sfd.FileName);
-                    MessageBox.Show("Reporte generado exitosamente.", "Ã‰xito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("¡Reporte generado exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Error al crear PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void BtnReportePaisesAnfitriones_Click(object? sender, EventArgs e)
         {
-            var pDao = new PartidoDAO();
-            var dt = pDao.ObtenerPaisesVisitantesPorPaisAnfitrion();
-            ExportarAPdf(dt, "PaÃ­ses Jugando por PaÃ­s AnfitriÃ³n", "Reporte_Anfitriones.pdf");
+            try {
+                var pDao = new PartidoDAO();
+                var dt = pDao.ObtenerPaisesVisitantesPorPaisAnfitrion();
+                ExportarAPdf(dt, "Países Jugando por País Anfitrión", "Reporte_Anfitriones.pdf");
+            } catch (Exception ex) {
+                MessageBox.Show("Ocurrió un error al obtener la info: " + ex.Message);
+            }
         }
 
         private void BtnReporteTotalConfederacion_Click(object? sender, EventArgs e)
         {
-            // Solo para motivos del ejemplo de UI
-            var dt = new DataTable();
-            dt.Columns.Add("Equipo");
-            dt.Columns.Add("ConfederaciÃ³n");
-            dt.Columns.Add("Valor_Total");
-            dt.Rows.Add("Brasil", "CONMEBOL", "1500000.00");
-            dt.Rows.Add("Francia", "UEFA", "2500000.00");
-            
-            ExportarAPdf(dt, "Valor Total Equipos por ConfederaciÃ³n", "Reporte_Confederaciones.pdf");
+            try {
+                if (cmbConfederacion.SelectedValue == null) 
+                {
+                    MessageBox.Show("Selecciona una confederación primero.");
+                    return;
+                }
+
+                int idConf = Convert.ToInt32(cmbConfederacion.SelectedValue);
+                // Ahora sí usamos datos reales de la BD, no más mocks jeje
+                var dt = confedDAO.ObtenerValorEquiposPorConfederacion(idConf);
+                
+                string nombreConf = cmbConfederacion.Text;
+                ExportarAPdf(dt, $"Valor Total Equipos de la confederación: {nombreConf}", $"Reporte_{nombreConf}.pdf");
+            } catch (Exception ex) {
+                 MessageBox.Show("Ocurrió un error al obtener la info: " + ex.Message);
+            }
         }
     }
 }

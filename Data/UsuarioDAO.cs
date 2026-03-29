@@ -13,9 +13,9 @@ namespace MiProyectoCSharp.Data
         public Usuario? ValidarCredenciales(string nombreUsuario, string contrasenaPlana)
         {
             using var connection = DbConnectionHelper.GetConnection();
-            string sql = "SELECT id_usuario, nombre_usuario, contrasena_hash, tipo_usuario, fecha_creacion FROM Usuario WHERE nombre_usuario = :user";
+            string sql = "SELECT id_usuario, nombre_usuario, contrasena_hash, tipo_usuario, fecha_creacion FROM Usuario WHERE nombre_usuario = :nombreUsuario";
             using var cmd = new OracleCommand(sql, connection);
-            cmd.Parameters.Add(new OracleParameter("user", nombreUsuario));
+            cmd.Parameters.Add(new OracleParameter("nombreUsuario", nombreUsuario));
 
             using var reader = cmd.ExecuteReader();
             if (reader.Read())
