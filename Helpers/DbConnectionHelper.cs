@@ -8,7 +8,7 @@ namespace MiProyectoCSharp.Helpers
     {
         // NOTA: Ajusta la cadena de conexión según tu entorno Oracle (Host, Puerto, Servicio, Usuario, Password)
         // Ejemplo genérico para localhost XE
-        private static readonly string ConnectionString = "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=XE)));User Id=copamundial;Password=copamundial;";
+        private static readonly string ConnectionString = "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=XE)));User Id=copamundial;Password=copamundial;";
 
         public static OracleConnection GetConnection()
         {
