@@ -1,9 +1,9 @@
 using System;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.Equipo
+namespace ProyectoCSharpOracle.Application.UseCases.EquipoUC
 {
     /// <summary>
     /// Caso de uso para el método obtenerValorEquiposPorConfederacion del servicio EquipoService.
@@ -11,12 +11,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Equipo
     /// </summary>
     public class ObtenerValorEquiposPorConfederacionUseCase
     {
-        private readonly EquipoService _equipoService;
         private readonly EquipoDAO _equipoDAO;
 
-        public ObtenerValorEquiposPorConfederacionUseCase(EquipoService equipoService, EquipoDAO equipoDAO)
+        public ObtenerValorEquiposPorConfederacionUseCase(EquipoDAO equipoDAO)
         {
-            _equipoService = equipoService ?? throw new ArgumentNullException(nameof(equipoService));
             _equipoDAO = equipoDAO ?? throw new ArgumentNullException(nameof(equipoDAO));
         }
 
@@ -32,7 +30,7 @@ namespace ProyectoCSharpOracle.Application.UseCases.Equipo
                 throw new ArgumentException("El ID de confederación debe ser mayor a 0.", nameof(idConfederacion));
 
             // 2. Validación de dominio
-            _equipoService.obtenerValorEquiposPorConfederacion(usuario, idConfederacion);
+            AuthorizationService.ValidatePermission(usuario, Operation.ManageTeams);
 
             // 3. Consulta
             // Nota: El DAO debería tener un método para esto, o se puede usar ObtenerTodos filtrado

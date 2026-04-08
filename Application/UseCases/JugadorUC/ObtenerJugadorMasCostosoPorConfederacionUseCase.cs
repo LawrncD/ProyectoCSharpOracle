@@ -2,9 +2,9 @@ using System;
 using System.Data;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.Jugador
+namespace ProyectoCSharpOracle.Application.UseCases.JugadorUC
 {
     /// <summary>
     /// Caso de uso para el método obtenerJugadorMasCostosoPorCOnfederacion del servicio JugadorService.
@@ -12,12 +12,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Jugador
     /// </summary>
     public class ObtenerJugadorMasCostosoPorConfederacionUseCase
     {
-        private readonly JugadorService _jugadorService;
         private readonly JugadorDAO _jugadorDAO;
 
-        public ObtenerJugadorMasCostosoPorConfederacionUseCase(JugadorService jugadorService, JugadorDAO jugadorDAO)
+        public ObtenerJugadorMasCostosoPorConfederacionUseCase(JugadorDAO jugadorDAO)
         {
-            _jugadorService = jugadorService ?? throw new ArgumentNullException(nameof(jugadorService));
             _jugadorDAO = jugadorDAO ?? throw new ArgumentNullException(nameof(jugadorDAO));
         }
 
@@ -30,7 +28,7 @@ namespace ProyectoCSharpOracle.Application.UseCases.Jugador
         public DataTable Execute(Usuario usuario, int idEquipo = 0)
         {
             // 1. Validación de dominio
-            _jugadorService.obtenerJugadorMasCostosoPorCOnfederacion(usuario, idEquipo);
+            AuthorizationService.ValidatePermission(usuario, Operation.QueryExpensivePlayerByConfederation);
 
             // 2. Consulta
             return _jugadorDAO.ObtenerJugadorMasCostosoPorConfederacion();

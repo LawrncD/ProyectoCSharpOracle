@@ -1,9 +1,9 @@
 using System;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.Equipo
+namespace ProyectoCSharpOracle.Application.UseCases.EquipoUC
 {
     /// <summary>
     /// Caso de uso para el método insertarEquipo del servicio de dominio EquipoService.
@@ -11,12 +11,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Equipo
     /// </summary>
     public class InsertarEquipoUseCase
     {
-        private readonly EquipoService _equipoService;
         private readonly EquipoDAO _equipoDAO;
 
-        public InsertarEquipoUseCase(EquipoService equipoService, EquipoDAO equipoDAO)
+        public InsertarEquipoUseCase(EquipoDAO equipoDAO)
         {
-            _equipoService = equipoService ?? throw new ArgumentNullException(nameof(equipoService));
             _equipoDAO = equipoDAO ?? throw new ArgumentNullException(nameof(equipoDAO));
         }
 
@@ -29,10 +27,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Equipo
         public bool Execute(Usuario usuario, Equipo equipo)
         {
             // 1. Validación de dominio
-            var equipoValidado = _equipoService.insertarEquipo(usuario, equipo);
+            AuthorizationService.ValidatePermission(usuario, Operation.ManageTeams);
 
             // 2. Persistencia
-            return _equipoDAO.Insertar(equipoValidado);
+            return _equipoDAO.Insertar(equipo);
         }
     }
 }

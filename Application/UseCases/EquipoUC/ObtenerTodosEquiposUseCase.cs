@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.Equipo
+namespace ProyectoCSharpOracle.Application.UseCases.EquipoUC
 {
     /// <summary>
     /// Caso de uso para el método obtenerTodas del servicio de dominio EquipoService.
@@ -12,12 +12,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Equipo
     /// </summary>
     public class ObtenerTodosEquiposUseCase
     {
-        private readonly EquipoService _equipoService;
         private readonly EquipoDAO _equipoDAO;
 
-        public ObtenerTodosEquiposUseCase(EquipoService equipoService, EquipoDAO equipoDAO)
+        public ObtenerTodosEquiposUseCase(EquipoDAO equipoDAO)
         {
-            _equipoService = equipoService ?? throw new ArgumentNullException(nameof(equipoService));
             _equipoDAO = equipoDAO ?? throw new ArgumentNullException(nameof(equipoDAO));
         }
 
@@ -29,7 +27,7 @@ namespace ProyectoCSharpOracle.Application.UseCases.Equipo
         public List<Equipo> Execute(Usuario usuario)
         {
             // 1. Validación de dominio
-            _equipoService.obtenerTodas(usuario);
+            AuthorizationService.ValidatePermission(usuario, Operation.ManageTeams);
 
             // 2. Consulta
             return _equipoDAO.ObtenerTodos();

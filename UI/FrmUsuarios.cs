@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Drawing;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 using MiProyectoCSharp.Domain.Entities;
 using MiProyectoCSharp.Enums;
 

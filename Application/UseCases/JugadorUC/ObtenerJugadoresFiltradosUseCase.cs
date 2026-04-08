@@ -2,9 +2,9 @@ using System;
 using System.Data;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.Jugador
+namespace ProyectoCSharpOracle.Application.UseCases.JugadorUC
 {
     /// <summary>
     /// Caso de uso para el método ObtenerJugadoresFiltrados del servicio JugadorService.
@@ -12,12 +12,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Jugador
     /// </summary>
     public class ObtenerJugadoresFiltradosUseCase
     {
-        private readonly JugadorService _jugadorService;
         private readonly JugadorDAO _jugadorDAO;
 
-        public ObtenerJugadoresFiltradosUseCase(JugadorService jugadorService, JugadorDAO jugadorDAO)
+        public ObtenerJugadoresFiltradosUseCase(JugadorDAO jugadorDAO)
         {
-            _jugadorService = jugadorService ?? throw new ArgumentNullException(nameof(jugadorService));
             _jugadorDAO = jugadorDAO ?? throw new ArgumentNullException(nameof(jugadorDAO));
         }
 
@@ -43,7 +41,7 @@ namespace ProyectoCSharpOracle.Application.UseCases.Jugador
                 throw new ArgumentException("El valor mínimo no puede ser mayor o igual al máximo.");
 
             // 2. Validación de dominio
-            _jugadorService.ObtenerJugadoresFiltrados(usuario, posicion);
+            AuthorizationService.ValidatePermission(usuario, Operation.ManagePlayers);
 
             // 3. Consulta con filtros
             return _jugadorDAO.ObtenerJugadoresFiltrados(pesoMin, pesoMax, estMin, estMax, idEquipo);

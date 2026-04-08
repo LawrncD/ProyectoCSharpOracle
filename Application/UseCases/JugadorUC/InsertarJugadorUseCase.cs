@@ -1,9 +1,9 @@
 using System;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.Jugador
+namespace ProyectoCSharpOracle.Application.UseCases.JugadorUC
 {
     /// <summary>
     /// Caso de uso para el método insertarJugador del servicio de dominio JugadorService.
@@ -11,12 +11,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Jugador
     /// </summary>
     public class InsertarJugadorUseCase
     {
-        private readonly JugadorService _jugadorService;
         private readonly JugadorDAO _jugadorDAO;
 
-        public InsertarJugadorUseCase(JugadorService jugadorService, JugadorDAO jugadorDAO)
+        public InsertarJugadorUseCase(JugadorDAO jugadorDAO)
         {
-            _jugadorService = jugadorService ?? throw new ArgumentNullException(nameof(jugadorService));
             _jugadorDAO = jugadorDAO ?? throw new ArgumentNullException(nameof(jugadorDAO));
         }
 
@@ -29,10 +27,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.Jugador
         public bool Execute(Usuario usuario, Jugador jugador)
         {
             // 1. Validación de dominio
-            var jugadorValidado = _jugadorService.insertarJugador(usuario, jugador);
+            AuthorizationService.ValidatePermission(usuario, Operation.ManagePlayers);
 
             // 2. Persistencia
-            return _jugadorDAO.Insertar(jugadorValidado);
+            return _jugadorDAO.Insertar(jugador);
         }
     }
 }

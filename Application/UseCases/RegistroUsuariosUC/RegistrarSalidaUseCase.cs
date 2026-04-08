@@ -1,9 +1,9 @@
 using System;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuarios
+namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuariosUC
 {
     /// <summary>
     /// Caso de uso para el método registrarSalida del servicio de dominio.
@@ -11,12 +11,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuarios
     /// </summary>
     public class RegistrarSalidaUseCase
     {
-        private readonly RegistroUsuariosService _registroService;
         private readonly BitacoraDAO _bitacoraDAO;
 
-        public RegistrarSalidaUseCase(RegistroUsuariosService registroService, BitacoraDAO bitacoraDAO)
+        public RegistrarSalidaUseCase(BitacoraDAO bitacoraDAO)
         {
-            _registroService = registroService ?? throw new ArgumentNullException(nameof(registroService));
             _bitacoraDAO = bitacoraDAO ?? throw new ArgumentNullException(nameof(bitacoraDAO));
         }
 
@@ -28,7 +26,7 @@ namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuarios
         public void Execute(Usuario usuario, int idBitacora)
         {
             // 1. Validación de dominio
-            _registroService.registrarSalida(usuario);
+            AuthorizationService.ValidatePermission(usuario, Operation.RegisterExit);
 
             // 2. Persistencia
             _bitacoraDAO.RegistrarSalida(idBitacora);

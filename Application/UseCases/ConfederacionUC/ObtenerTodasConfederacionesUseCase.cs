@@ -3,7 +3,7 @@ using MiProyectoCSharp.Domain.Entities;
 using MiProyectoCSharp.Repository;
 using ProyectoCSharpOracle.Domain.DomainServices;
 
-namespace ProyectoCSharpOracle.Application.UseCases.obtenerTodasConfederaciones
+namespace ProyectoCSharpOracle.Application.UseCases.ConfederacionUC
 
 {
     /// <summary>
@@ -12,12 +12,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.obtenerTodasConfederaciones
     /// </summary>
     public class ObtenerTodasConfederacionesUseCase
     {
-        private readonly ConfederacionService _confederacionService;
-        private readonly ConfederacionDA _confederacionDAO;
+        private readonly ConfederacionDAO _confederacionDAO;
 
-        public ObtenerTodasConfederacionesUseCase(ConfederacionService confederacionService, ConfederacionDA confederacionDAO)
+        public ObtenerTodasConfederacionesUseCase(ConfederacionDAO confederacionDAO)
         {
-            _confederacionService = confederacionService ?? throw new ArgumentNullException(nameof(confederacionService));
             _confederacionDAO = confederacionDAO ?? throw new ArgumentNullException(nameof(confederacionDAO));
         }
 
@@ -29,8 +27,7 @@ namespace ProyectoCSharpOracle.Application.UseCases.obtenerTodasConfederaciones
         public List<Confederacion> Execute(Usuario usuario)
         {
             // 1. Validación de dominio
-            _confederacionService.obtenerTodasConfederaciones(usuario);
-
+            AuthorizationService.ValidatePermission(usuario, Operation.ManageConfederations);
             // 2. Consulta
             return _confederacionDAO.ObtenerTodas();
         }

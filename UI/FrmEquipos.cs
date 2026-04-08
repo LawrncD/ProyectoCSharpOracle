@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Data;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 using MiProyectoCSharp.Domain.Entities;
 
 namespace MiProyectoCSharp.UI

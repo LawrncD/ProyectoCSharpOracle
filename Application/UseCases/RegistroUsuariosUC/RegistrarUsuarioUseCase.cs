@@ -1,9 +1,9 @@
 using System;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
-using MiProyectoCSharp.Data;
+using MiProyectoCSharp.Repository;
 
-namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuarios
+namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuariosUC
 {
     /// <summary>
     /// Caso de uso para el método registrarUsuario del servicio de dominio.
@@ -11,12 +11,10 @@ namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuarios
     /// </summary>
     public class RegistrarUsuarioUseCase
     {
-        private readonly RegistroUsuariosService _registroService;
         private readonly UsuarioDAO _usuarioDAO;
 
-        public RegistrarUsuarioUseCase(RegistroUsuariosService registroService, UsuarioDAO usuarioDAO)
+        public RegistrarUsuarioUseCase(UsuarioDAO usuarioDAO)
         {
-            _registroService = registroService ?? throw new ArgumentNullException(nameof(registroService));
             _usuarioDAO = usuarioDAO ?? throw new ArgumentNullException(nameof(usuarioDAO));
         }
 
@@ -29,7 +27,7 @@ namespace ProyectoCSharpOracle.Application.UseCases.RegistroUsuarios
         public bool Execute(Usuario usuarioRegistrador, Usuario usuarioNuevo)
         {
             // 1. Validación de dominio
-            _registroService.registrarUsuario(usuarioRegistrador, usuarioNuevo);
+            AuthorizationService.ValidatePermission(usuarioRegistrador, Operation.AddUser);
 
             // 2. Persistencia
             return _usuarioDAO.Insertar(usuarioNuevo);

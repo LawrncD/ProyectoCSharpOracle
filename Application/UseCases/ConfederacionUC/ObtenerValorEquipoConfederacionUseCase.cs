@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using MiProyectoCSharp.Domain.Entities;
 using ProyectoCSharpOracle.Domain.DomainServices;
 using MiProyectoCSharp.Repository;
@@ -26,13 +26,14 @@ namespace ProyectoCSharpOracle.Application.UseCases.ConfederacionUC
         /// <param name="usuario">El usuario que solicita la operación.</param>
         /// <param name="confederacion">La confederación a consultar.</param>
         /// <returns>La confederación con datos de valor de equipos.</returns>
-        public Confederacion Execute(Usuario usuario, Confederacion confederacion)
+        public List<Confederacion> Execute(Usuario usuario, Confederacion confederacion)
         {
             // 1. Validación de dominio
             var confValidada = _confederacionService.obtenerValorEquiposPorConfederacion(usuario, confederacion);
 
             // 2. La lógica específica se maneja en el DAO si es necesario
-            return confValidada;
+            return _confederacionDAO.ObtenerValorEquiposPorConfederacion(confValidada);
         }
     }
 }
+*/
