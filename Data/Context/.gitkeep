@@ -1,5 +1,0 @@
-namespace MiProyectoCSharp.Data.Context;
-
-// Aquí irá tu DbContext de Oracle con Entity Framework
-// Ejemplo futuro:
-// public class OracleDbContext : DbContext { ... }

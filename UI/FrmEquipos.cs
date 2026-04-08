@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Data;
 using MiProyectoCSharp.Data;
-using MiProyectoCSharp.Models;
+using MiProyectoCSharp.Domain.Entities;
 
 namespace MiProyectoCSharp.UI
 {
@@ -28,7 +28,7 @@ namespace MiProyectoCSharp.UI
 
         private void InitializeComponent()
         {
-            this.Text = "Gestión de Selecciones"; 
+            this.Text = "Gestiï¿½n de Selecciones"; 
             this.Size = new Size(850, 550);
             this.StartPosition = FormStartPosition.CenterParent;
             // Beige background
@@ -65,11 +65,11 @@ namespace MiProyectoCSharp.UI
             txtNombre = new TextBox { Location = new Point(90, 32), Width = 150, BorderStyle = BorderStyle.FixedSingle };
             gbForm.Controls.Add(txtNombre);
 
-            gbForm.Controls.Add(new Label { Text = "País:", Location = new Point(265, 35), AutoSize = true});
+            gbForm.Controls.Add(new Label { Text = "Paï¿½s:", Location = new Point(265, 35), AutoSize = true});
             txtPais = new TextBox { Location = new Point(310, 32), Width = 150, BorderStyle = BorderStyle.FixedSingle };
             gbForm.Controls.Add(txtPais);
 
-            gbForm.Controls.Add(new Label { Text = "Confederación:", Location = new Point(10, 75), AutoSize = true});
+            gbForm.Controls.Add(new Label { Text = "Confederaciï¿½n:", Location = new Point(10, 75), AutoSize = true});
             cmbConfederacion = new ComboBox { 
                 Location = new Point(120, 72), 
                 Width = 140, 
@@ -131,6 +131,8 @@ namespace MiProyectoCSharp.UI
         {
             try
             {
+
+                
                 DataTable dt = confedDAO.ObtenerTodas();
                 cmbConfederacion.DisplayMember = "NOMBRE"; 
                 cmbConfederacion.ValueMember = "ID_CONFEDERACION"; 
@@ -153,7 +155,7 @@ namespace MiProyectoCSharp.UI
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtPais.Text))
             {
-                MessageBox.Show("Debe escribir el nombre y el país.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Debe escribir el nombre y el paï¿½s.", "Atenciï¿½n", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (cmbConfederacion.SelectedValue == null) return;

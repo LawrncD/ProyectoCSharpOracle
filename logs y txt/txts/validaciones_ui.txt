@@ -1,0 +1,55 @@
+Elementos en la UI que no deberían estar ahí (violaciones de separación de capas):
+
+**Validaciones de dominio (deben moverse a la capa de negocio/modelo):**
+
+1. **FrmEquipos.cs**:
+   - Nombre del equipo: requerido (no vacío).
+   - País del equipo: requerido (no vacío).
+   - Confederación: debe estar seleccionada.
+
+2. **FrmJugadores.cs**:
+   - Nombre del jugador: requerido (no vacío).
+   - Equipo: debe estar seleccionado.
+
+3. **FrmUsuarios.cs**:
+   - Nombre de usuario: requerido (no vacío).
+   - Contraseña: requerida (no vacía).
+   - Regla de negocio: No se puede eliminar el usuario "admin".
+
+4. **FrmLogin.cs**:
+   - Nombre de usuario: requerido (no vacío).
+   - Contraseña: requerida (no vacía).
+
+5. **FrmConsultas.cs**:
+   - Estadio: debe estar seleccionado para ejecutar consultas.
+
+
+6. **FrmReportes.cs**:
+   - Confederación: debe estar seleccionada para generar reportes.
+
+**Acceso directo a DAOs (debe estar en una capa de servicios):**
+- Todos los forms llaman directamente a DAOs (EquipoDAO, JugadorDAO, UsuarioDAO, BitacoraDAO) para operaciones CRUD. Ejemplos:
+  - FrmEquipos.cs: equipoDAO.Insertar()
+  - FrmJugadores.cs: jugadorDAO.Insertar()
+  - FrmUsuarios.cs: usuarioDAO.Insertar(), usuarioDAO.Eliminar()
+  - FrmLogin.cs: UsuarioDAO.ValidarCredenciales(), BitacoraDAO.RegistrarIngreso()
+  - FrmConsultas.cs: Llamadas a DAOs para consultas.
+  - FrmReportes.cs: Acceso a DAOs para obtener datos de reportes.
+
+**Manejo de excepciones de base de datos (debe manejarse en servicios y devolver mensajes a la UI):**
+- Try-catch blocks en todos los forms que muestran MessageBox con errores de BD. Ejemplos:
+  - FrmEquipos.cs: MessageBox.Show("No se pudo registrar el equipo:\n" + ex.ToString())
+  - FrmUsuarios.cs: MessageBox.Show("Error BD: " + ex.Message)
+  - FrmLogin.cs: lblError.Text = "Error de base de datos."
+
+**Consultas directas a la base de datos (deben estar encapsuladas en servicios):**
+- FrmConsultas.cs: Ejecuta consultas SQL directas o a través de DAOs sin intermediarios.
+- FrmReportes.cs: Consultas para generar reportes directamente desde la UI.
+
+**Reglas de negocio hardcodeadas (deben estar en la capa de negocio):**
+- FrmUsuarios.cs: Regla "No se puede borrar el admin" directamente en el código de la UI.
+- Otras reglas implícitas en validaciones que podrían ser más complejas.
+
+**Lógica de negocio adicional:**
+- Registro de bitácora en login (BitacoraDAO.RegistrarIngreso) - debería estar en servicios de autenticación.
+- Cálculos o transformaciones de datos antes de insertar (ej. Trim en textos) - podrían estar en el modelo.

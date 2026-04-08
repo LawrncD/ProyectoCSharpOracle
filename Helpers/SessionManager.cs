@@ -1,5 +1,5 @@
 
-using MiProyectoCSharp.Models;
+using MiProyectoCSharp.Domain.Entities;
 
 namespace MiProyectoCSharp.Helpers
 {
