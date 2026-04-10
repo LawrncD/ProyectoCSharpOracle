@@ -1,3 +1,4 @@
+ï»¿#nullable disable
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -30,12 +31,12 @@ namespace MiProyectoCSharp.UI
         public FrmPrincipal()
         {
             InitializeComponent();
-            ConfigurarDiseñoCorporativo();
+            ConfigurarDiseÃ±oCorporativo();
         }
 
         private void InitializeComponent()
         {
-            this.Text = "ERP Sistema de Gestión Mundialista"; 
+            this.Text = "ERP Sistema de GestiÃ³n Mundialista"; 
             this.IsMdiContainer = true;
             this.WindowState = FormWindowState.Maximized;
             this.Font = new Font("Segoe UI", 9.5f, FontStyle.Regular);
@@ -53,10 +54,10 @@ namespace MiProyectoCSharp.UI
             itemSalir.Click += ItemSalir_Click;
             menuArchivo.DropDownItems.Add(itemSalir);
 
-            var menuGestion = new ToolStripMenuItem("GESTIÓN");
-            var itemUsuarios = new ToolStripMenuItem("Módulo de Usuarios");
+            var menuGestion = new ToolStripMenuItem("GESTIÃ“N");
+            var itemUsuarios = new ToolStripMenuItem("MÃ³dulo de Usuarios");
             itemUsuarios.Click += ItemUsuarios_Click;
-            var itemEquipos = new ToolStripMenuItem("Módulo de Equipos");
+            var itemEquipos = new ToolStripMenuItem("MÃ³dulo de Equipos");
             itemEquipos.Click += ItemEquipos_Click;
             var itemJugadores = new ToolStripMenuItem("Plantillas y Jugadores");
             itemJugadores.Click += ItemJugadores_Click;
@@ -79,20 +80,20 @@ namespace MiProyectoCSharp.UI
             this.Controls.Add(menuStrip1);
             this.MainMenuStrip = menuStrip1;
 
-            // ================== TOOL STRIP (Módulo de Acceso Rápido) ==================
+            // ================== TOOL STRIP (MÃ³dulo de Acceso RÃ¡pido) ==================
             // Full Beige, No Colors
             toolStrip1 = new ToolStrip();
             toolStrip1.BackColor = Color.FromArgb(230, 225, 215);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.Padding = new Padding(10, 5, 10, 5);
 
-            btnTSUsuarios = new ToolStripButton("Gestión Usuarios") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
+            btnTSUsuarios = new ToolStripButton("GestiÃ³n Usuarios") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
             btnTSUsuarios.Click += ItemUsuarios_Click;
 
-            btnTSEquipos = new ToolStripButton("Gestión Equipos") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
+            btnTSEquipos = new ToolStripButton("GestiÃ³n Equipos") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
             btnTSEquipos.Click += ItemEquipos_Click;
 
-            btnTSJugadores = new ToolStripButton("Gestión Jugadores") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
+            btnTSJugadores = new ToolStripButton("GestiÃ³n Jugadores") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
             btnTSJugadores.Click += ItemJugadores_Click;
 
             btnTSConsultas = new ToolStripButton("Consultas") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
@@ -101,7 +102,7 @@ namespace MiProyectoCSharp.UI
             btnTSReportes = new ToolStripButton("Reportes PDF") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(60, 60, 60) };
             btnTSReportes.Click += ItemReportes_Click;
 
-            btnTSSalir = new ToolStripButton("Cerrar Sesión") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(80, 80, 80), Alignment = ToolStripItemAlignment.Right };
+            btnTSSalir = new ToolStripButton("Cerrar SesiÃ³n") { Font = new Font("Segoe UI", 9f, FontStyle.Regular), ForeColor = Color.FromArgb(80, 80, 80), Alignment = ToolStripItemAlignment.Right };
             btnTSSalir.Click += ItemSalir_Click;
 
             toolStrip1.Items.Add(btnTSUsuarios);
@@ -144,7 +145,7 @@ namespace MiProyectoCSharp.UI
             timerReloj.Start();
         }
 
-        private void ConfigurarDiseñoCorporativo()
+        private void ConfigurarDiseÃ±oCorporativo()
         {
             var currentUser = SessionManager.Instance.UsuarioActivo;
             if (currentUser != null)
@@ -206,3 +207,5 @@ namespace MiProyectoCSharp.UI
         }
     }
 }
+
+

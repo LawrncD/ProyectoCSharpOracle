@@ -1,3 +1,4 @@
+﻿#nullable disable
 using System;
 using System.Windows.Forms;
 using System.Drawing;
@@ -35,7 +36,7 @@ namespace MiProyectoCSharp.UI
             var pnlHeader = new Panel { Dock = DockStyle.Top, Height = 60, BackColor = Color.FromArgb(100, 95, 85) };
             var lblTitulo = new Label 
             { 
-                Text = "👥 GESTIÓN DE USUARIOS", 
+                Text = "ðŸ‘¥ GESTIá“N DE USUARIOS", 
                 ForeColor = Color.White, 
                 Font = new Font("Segoe UI", 14, FontStyle.Bold), 
                 Dock = DockStyle.Fill, 
@@ -75,7 +76,7 @@ namespace MiProyectoCSharp.UI
 
             btnAgregar = new Button 
             { 
-                Text = "➕ Guardar", 
+                Text = "âž• Guardar", 
                 Location = new Point(275, 70), 
                 Size = new Size(205, 32),
                 BackColor = Color.FromArgb(140, 135, 125),
@@ -91,7 +92,7 @@ namespace MiProyectoCSharp.UI
             var pnlMid = new Panel { Dock = DockStyle.Top, Height = 55 };
             btnEliminar = new Button 
             { 
-                Text = "🗑️ Eliminar Usuario Seleccionado", 
+                Text = "ðŸ—‘ï¸ Eliminar Usuario Seleccionado", 
                 Location = new Point(0, 15), 
                 Size = new Size(250, 32),
                 BackColor = Color.FromArgb(140, 60, 60),
@@ -160,7 +161,7 @@ namespace MiProyectoCSharp.UI
             {
                 if (usuarioDAO.Insertar(nuevo))
                 {
-                    MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Usuario creado correctamente.", "á‰xito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtUsername.Clear(); txtPassword.Clear(); CargarUsuarios();
                 }
             }
@@ -178,11 +179,13 @@ namespace MiProyectoCSharp.UI
             string user = dgvUsuarios.SelectedRows[0].Cells["NombreUsuario"].Value.ToString() ?? "";
             
             if (user.ToLower() == "admin") { MessageBox.Show("No se puede borrar el admin.", "Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Stop); return; }
-            if (MessageBox.Show($"¿Borrar a '{user}'?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show($"Â¿Borrar a '{user}'?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try { if (usuarioDAO.Eliminar(id)) { MessageBox.Show("Borrado."); CargarUsuarios(); } }
-                catch (Exception ex) { MessageBox.Show("No se eliminó (¿Tiene registros de bitácora?). " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                catch (Exception ex) { MessageBox.Show("No se eliminó (Â¿Tiene registros de bitácora?). " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             }
         }
     }
 }
+
+

@@ -1,0 +1,72 @@
+-- SCRIPT URGENTE: Verificar y forzar actualización de confederaciones
+-- Ejecutar DIRECTAMENTE en SQL*Plus / SQLDeveloper como usuario copamundial
+
+-- ===========================
+-- PASO 1: VERIFICAR ESTADO ACTUAL
+-- ===========================
+SET PAGESIZE 100
+SET LINESIZE 120
+COLUMN ID FORMAT 9999
+COLUMN NOMBRE FORMAT A80
+
+PROMPT
+PROMPT ========== ESTADO ACTUAL DE CONFEDERACIONES ==========
+PROMPT
+
+SELECT ID_CONFEDERACION as ID, NOMBRE, LENGTH(NOMBRE) as CHARS, LENGTHB(NOMBRE) as BYTES
+FROM Confederacion
+ORDER BY ID_CONFEDERACION;
+
+-- ===========================
+-- PASO 2: LIMPIAR Y ACTUALIZAR - UNA POR UNA CON COMMIT
+-- ===========================
+
+PROMPT
+PROMPT ========== ACTUALIZANDO CON NOMBRES CORTOS ==========
+PROMPT
+
+-- ID 1
+UPDATE Confederacion SET NOMBRE = 'CONMEBOL' WHERE ID_CONFEDERACION = 1;
+COMMIT;
+PROMPT ID=1 actualizado a CONMEBOL;
+
+-- ID 2
+UPDATE Confederacion SET NOMBRE = 'CONCACAF' WHERE ID_CONFEDERACION = 2;
+COMMIT;
+PROMPT ID=2 actualizado a CONCACAF;
+
+-- ID 3
+UPDATE Confederacion SET NOMBRE = 'UEFA' WHERE ID_CONFEDERACION = 3;
+COMMIT;
+PROMPT ID=3 actualizado a UEFA;
+
+-- ID 4
+UPDATE Confederacion SET NOMBRE = 'AFC' WHERE ID_CONFEDERACION = 4;
+COMMIT;
+PROMPT ID=4 actualizado a AFC;
+
+-- ID 5
+UPDATE Confederacion SET NOMBRE = 'CAF' WHERE ID_CONFEDERACION = 5;
+COMMIT;
+PROMPT ID=5 actualizado a CAF;
+
+-- ID 6
+UPDATE Confederacion SET NOMBRE = 'OFC' WHERE ID_CONFEDERACION = 6;
+COMMIT;
+PROMPT ID=6 actualizado a OFC;
+
+-- ===========================
+-- PASO 3: VERIFICAR DESPUÉS
+-- ===========================
+
+PROMPT
+PROMPT ========== ESTADO DESPUÉS DE ACTUALIZAR ==========
+PROMPT
+
+SELECT ID_CONFEDERACION as ID, NOMBRE, LENGTH(NOMBRE) as CHARS, LENGTHB(NOMBRE) as BYTES
+FROM Confederacion
+ORDER BY ID_CONFEDERACION;
+
+PROMPT
+PROMPT ===== FIN DE SCRIPT =====
+PROMPT

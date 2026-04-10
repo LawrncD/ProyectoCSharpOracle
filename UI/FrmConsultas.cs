@@ -1,3 +1,4 @@
+ï»¿#nullable disable
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -29,7 +30,7 @@ namespace MiProyectoCSharp.UI
             this.StartPosition = FormStartPosition.CenterParent;
             this.BackColor = Color.FromArgb(245, 245, 240);
 
-            // Título general
+            // TÃ­tulo general
             var lblTitulo = new Label {
                 Text = "Seleccione la consulta deseada:", 
                 Location = new Point(20, 20), 
@@ -44,10 +45,10 @@ namespace MiProyectoCSharp.UI
                 Font = new Font("Segoe UI", 10)
             };
             // Las 4 consultas obligatorias
-            cmbConsultas.Items.Add("1. Jugador más costoso por confederación");  
-            cmbConsultas.Items.Add("2. Partidos en un estadio específico");
-            cmbConsultas.Items.Add("3. Equipo más costoso por país (MEX, USA, CAN)");
-            cmbConsultas.Items.Add("4. Cantidad de jugadores < 21 años por equipo");
+            cmbConsultas.Items.Add("1. Jugador mÃ¡s costoso por confederaciÃ³n");  
+            cmbConsultas.Items.Add("2. Partidos en un estadio especÃ­fico");
+            cmbConsultas.Items.Add("3. Equipo mÃ¡s costoso por paÃ­s (MEX, USA, CAN)");
+            cmbConsultas.Items.Add("4. Cantidad de jugadores < 21 aÃ±os por equipo");
             cmbConsultas.SelectedIndex = 0;
             cmbConsultas.SelectedIndexChanged += CmbConsultas_SelectedIndexChanged;
 
@@ -109,7 +110,7 @@ namespace MiProyectoCSharp.UI
 
         private void CargarEstadios()
         {
-            // Pequeña consulta a pulso para llenar el combobox de estadios rápidamente
+            // PequeÃ±a consulta a pulso para llenar el combobox de estadios rÃ¡pidamente
             try
             {
                 var dt = new DataTable();
@@ -175,3 +176,5 @@ namespace MiProyectoCSharp.UI
         }
     }
 }
+
+

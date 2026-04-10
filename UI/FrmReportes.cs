@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -19,6 +20,12 @@ namespace MiProyectoCSharp.UI
         {
             InitializeComponent();
             CargarConfederaciones();
+            
+            // Refrescar confederaciones cuando el formulario se muestre
+            this.Shown += (s, e) => 
+            {
+                CargarConfederaciones(); // Asegura que cargue datos FRESCOS desde BD
+            };
         }
 
         private void InitializeComponent()
@@ -134,5 +141,7 @@ namespace MiProyectoCSharp.UI
         }
     }
 }
+
+
 
 
