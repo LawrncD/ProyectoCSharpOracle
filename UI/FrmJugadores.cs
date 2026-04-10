@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Data;
@@ -31,7 +31,7 @@ namespace MiProyectoCSharp.UI
 
         private void InitializeComponent()
         {
-            this.Text = "Gestión de Jugadores"; 
+            this.Text = "GestiÃ³n de Jugadores"; 
             this.Size = new Size(1000, 600);
             this.StartPosition = FormStartPosition.CenterParent;
             // Beige background
@@ -77,7 +77,7 @@ namespace MiProyectoCSharp.UI
             };
             gbForm.Controls.Add(cmbEquipos);
 
-            gbForm.Controls.Add(new Label { Text = "Posición:", Location = new Point(480, 35), AutoSize = true});
+            gbForm.Controls.Add(new Label { Text = "PosiciÃ³n:", Location = new Point(480, 35), AutoSize = true});
             cmbPosicion = new ComboBox { 
                 Location = new Point(545, 32), 
                 Width = 120, 
@@ -183,12 +183,12 @@ namespace MiProyectoCSharp.UI
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("Debe escribir el nombre del jugador.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Debe escribir el nombre del jugador.", "AtenciÃ³n", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             if (cmbEquipos.SelectedValue == null) 
             {
-                MessageBox.Show("Debe seleccionar un equipo primero. Si no hay equipos, por favor registre uno.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Debe seleccionar un equipo primero. Si no hay equipos, por favor registre uno.", "AtenciÃ³n", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -210,8 +210,8 @@ namespace MiProyectoCSharp.UI
                     txtNombre.Clear();
                     numValor.Value = 0;
                     CargarJugadores();
-                    // Alerta súper corporativa amigable
-                    var lblConfirm = new Label { Text = "? Guardado con éxito", ForeColor = Color.Green, AutoSize = true, Location = new Point(btnAgregar.Right + 10, btnAgregar.Top + 5) };
+                    // Alerta sÃºper corporativa amigable
+                    var lblConfirm = new Label { Text = "? Guardado con Ã©xito", ForeColor = Color.Green, AutoSize = true, Location = new Point(btnAgregar.Right + 10, btnAgregar.Top + 5) };
                     btnAgregar.Parent.Controls.Add(lblConfirm);
                     var t = new System.Windows.Forms.Timer { Interval = 2000 };
                     t.Tick += (s, ev) => { t.Stop(); lblConfirm.Dispose(); };
@@ -220,8 +220,10 @@ namespace MiProyectoCSharp.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error en base de datos:\n" + ex.ToString());
+                MessageBox.Show("OcurriÃ³ un error en base de datos:\n" + ex.ToString());
             }
         }
     }
 }
+
+

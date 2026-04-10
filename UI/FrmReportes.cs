@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -29,7 +29,7 @@ namespace MiProyectoCSharp.UI
             this.BackColor = Color.FromArgb(245, 245, 240);
 
             var lblConf = new Label { 
-                Text = "ConfederaciÛn:", 
+                Text = "Confederaci√≥n:", 
                 Location = new Point(50, 43), 
                 AutoSize = true,
                 Font = new Font("Segoe UI", 9.5f, FontStyle.Bold)
@@ -43,7 +43,7 @@ namespace MiProyectoCSharp.UI
 
             btnReporteTotalConfederacion = new Button
             {
-                Text = "Reporte: Valor Total Equipos x ConfederaciÛn",
+                Text = "Reporte: Valor Total Equipos x Confederaci√≥n",
                 Location = new Point(50, 80),
                 Size = new Size(380, 40),
                 BackColor = Color.FromArgb(100, 95, 85),
@@ -56,7 +56,7 @@ namespace MiProyectoCSharp.UI
 
             btnReportePaisesAnfitriones = new Button
             {
-                Text = "Reporte: PaÌses Visitantes a Anfitriones",
+                Text = "Reporte: Pa√≠ses Visitantes a Anfitriones",
                 Location = new Point(50, 140),
                 Size = new Size(380, 40),
                 BackColor = Color.FromArgb(140, 135, 125),
@@ -98,15 +98,7 @@ namespace MiProyectoCSharp.UI
             sfd.FileName = nombreArchivo;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    PdfReportGenerator.GenerarReporteDesdeDataTable(dt, titulo, sfd.FileName);
-                    MessageBox.Show("°Reporte generado exitosamente!", "…xito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error al crear PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                PdfReportGenerator.GenerarReporteDesdeDataTable(dt, titulo, sfd.FileName, abrirAlTerminar: true);
             }
         }
 
@@ -115,9 +107,9 @@ namespace MiProyectoCSharp.UI
             try {
                 var pDao = new PartidoDAO();
                 var dt = pDao.ObtenerPaisesVisitantesPorPaisAnfitrion();
-                ExportarAPdf(dt, "PaÌses Jugando por PaÌs AnfitriÛn", "Reporte_Anfitriones.pdf");
+                ExportarAPdf(dt, "Pa√≠ses Jugando por Pa√≠s Anfitri√≥n", "Reporte_Anfitriones.pdf");
             } catch (Exception ex) {
-                MessageBox.Show("OcurriÛ un error al obtener la info: " + ex.Message);
+                MessageBox.Show("Ocurri√≥ un error al obtener la info: " + ex.Message);
             }
         }
 
@@ -126,19 +118,21 @@ namespace MiProyectoCSharp.UI
             try {
                 if (cmbConfederacion.SelectedValue == null) 
                 {
-                    MessageBox.Show("Selecciona una confederaciÛn primero.");
+                    MessageBox.Show("Selecciona una confederaci√≥n primero.");
                     return;
                 }
 
                 int idConf = Convert.ToInt32(cmbConfederacion.SelectedValue);
-                // Ahora sÌ usamos datos reales de la BD, no m·s mocks jeje
+                // Ahora s√≠ usamos datos reales de la BD, no m√°s mocks jeje
                 var dt = confedDAO.ObtenerValorEquiposPorConfederacion(idConf);
                 
                 string nombreConf = cmbConfederacion.Text;
-                ExportarAPdf(dt, $"Valor Total Equipos de la confederaciÛn: {nombreConf}", $"Reporte_{nombreConf}.pdf");
+                ExportarAPdf(dt, $"Valor Total Equipos de la confederaci√≥n: {nombreConf}", $"Reporte_{nombreConf}.pdf");
             } catch (Exception ex) {
-                 MessageBox.Show("OcurriÛ un error al obtener la info: " + ex.Message);
+                 MessageBox.Show("Ocurri√≥ un error al obtener la info: " + ex.Message);
             }
         }
     }
 }
+
+

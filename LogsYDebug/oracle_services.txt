@@ -1,0 +1,5 @@
+﻿OracleJobSchedulerXE | Running | Automatic
+OracleOraDB21Home1MTSRecoveryService | Running | Automatic
+OracleOraDB21Home1TNSListener | Stopped | Automatic
+OracleServiceXE | Running | Automatic
+OracleVssWriterXE | Stopped | Automatic

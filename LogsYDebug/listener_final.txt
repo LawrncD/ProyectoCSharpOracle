@@ -1,0 +1,25 @@
+﻿
+LSNRCTL for 64-bit Windows: Version 21.0.0.0.0 - Production on 29-MAR-2026 13:44:43
+
+Copyright (c) 1991, 2021, Oracle.  All rights reserved.
+
+Conectßndose a (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=1521)))
+ESTADO del LISTENER
+------------------------
+Alias                     LISTENER
+Versi¾n                   TNSLSNR for 64-bit Windows: Version 21.0.0.0.0 - Production
+Fecha de Inicio       29-MAR-2026 13:42:48
+Tiempo Actividad   0 dÝas 0 hr. 1 min. 54 seg.
+Nivel de Rastreo        off
+Seguridad               ON: Local OS Authentication
+SNMP                      OFF
+Servicio por Defecto           XE
+Parßmetros del Listener   C:\oracle\homes\OraDB21Home1\network\admin\listener.ora
+Log del Listener          C:\oracle\diag\tnslsnr\LAPTOP-8QQQ1058\listener\alert\log.xml
+Recibiendo Resumen de Puntos Finales...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=127.0.0.1)(PORT=1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=ipc)(PIPENAME=\\.\pipe\EXTPROC1521ipc)))
+Resumen de Servicios...
+El servicio "CLRExtProc" tiene 1 instancia(s).
+  La instancia "CLRExtProc", con estado UNKNOWN, tiene 1 manejador(es) para este servicio...
+El comando ha terminado correctamente

@@ -1,0 +1,4 @@
+SHOW PARAMETER local_listener;
+SHOW PARAMETER service_names;
+SELECT STATUS FROM V$INSTANCE;
+EXIT;

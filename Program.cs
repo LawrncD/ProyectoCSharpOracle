@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using MiProyectoCSharp.UI;
+using MiProyectoCSharp.Helpers;
 
 namespace MiProyectoCSharp
 {
@@ -10,6 +11,9 @@ namespace MiProyectoCSharp
         static void Main()
         {
             ApplicationConfiguration.Initialize();
+            
+            // Limpiar encoding corrupto en la base de datos (una sola vez al inicio)
+            EncodingFixer.FixAllBrokenEncodings();
             
             // Iniciar con FrmLogin
             var login = new FrmLogin();
@@ -24,3 +28,10 @@ namespace MiProyectoCSharp
         }
     }
 }
+
+
+
+
+
+
+

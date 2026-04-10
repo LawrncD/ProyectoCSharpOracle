@@ -1,71 +1,100 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Data;
+using System.Text;
+using System.Windows.Forms;
+using System.Diagnostics;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.IO.Font.Constants;
 
 namespace MiProyectoCSharp.Helpers
 {
-    /// <summary>
-    /// Utilidad encargada de la generación de reportes en formato PDF a partir de datos estructurados.
-    /// </summary>
-    public class PdfReportGenerator
+    public static class PdfReportGenerator
     {
-        /// <summary>
-        /// Genera un documento PDF estructurado en base a un conjunto de datos y lo guarda en la ruta especificada.
-        /// </summary>
-        /// <param name="dt">La tabla de datos (<see cref="DataTable"/>) que contiene la información a reportar.</param>
-        /// <param name="titulo">El título principal que se mostrará en el encabezado del documento.</param>
-        /// <param name="rutaDestino">La ruta del sistema de archivos local o red donde se guardará el archivo PDF resultante.</param>
-        public static void GenerarReporteDesdeDataTable(DataTable dt, string titulo, string rutaDestino)
+        public static void GenerarReporteDesdeDataTable(DataTable data, string titulo, string rutaDestino, bool abrirAlTerminar = true)
         {
             try
             {
-                using var writer = new PdfWriter(rutaDestino);
-                using var pdf = new PdfDocument(writer);
-                using var document = new Document(pdf);
+                // Asegurar que el archivo no existe
+                if (File.Exists(rutaDestino))
+                    File.Delete(rutaDestino);
 
-                var fontRojo = ColorConstants.DARK_GRAY;
-                document.Add(new Paragraph(titulo)
-                    .SetTextAlignment(TextAlignment.CENTER)
-                    .SetFontSize(18)
-                    .SetFontColor(fontRojo));
-                document.Add(new Paragraph("\n"));
-
-                if (dt.Columns.Count > 0)
+                using (var writer = new PdfWriter(rutaDestino))
+                using (var pdf = new PdfDocument(writer))
+                using (var document = new Document(pdf))
                 {
-                    Table table = new Table(UnitValue.CreatePercentArray(dt.Columns.Count)).UseAllAvailableWidth();
+                    var font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+                    document.SetFont(font);
+                    
+                    var title = new Paragraph(titulo)
+                        .SetTextAlignment(TextAlignment.CENTER)
+                        .SetFontSize(16)
+                        .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD));
+                    
+                    document.Add(title);
+                    document.Add(new Paragraph(" "));
 
-                    foreach (DataColumn column in dt.Columns)
+                    Table table = new Table(data.Columns.Count).UseAllAvailableWidth();
+                    var boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
+                    foreach (DataColumn column in data.Columns)
                     {
-                        var cell = new Cell().Add(new Paragraph(column.ColumnName.ToUpper()))
-                            .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
-                            .SetTextAlignment(TextAlignment.CENTER);
-                        table.AddHeaderCell(cell);
+                        table.AddHeaderCell(new Cell().Add(new Paragraph(column.ColumnName).SetFont(boldFont)));
                     }
 
-                    foreach (DataRow row in dt.Rows)
+                    foreach (DataRow row in data.Rows)
                     {
                         foreach (var item in row.ItemArray)
                         {
-                            table.AddCell(new Cell().Add(new Paragraph(item?.ToString() ?? "")));
+                            string value = item?.ToString() ?? "";
+                            if (!string.IsNullOrEmpty(value))
+                                value = Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(value));
+                            table.AddCell(new Cell().Add(new Paragraph(value)));
                         }
                     }
 
                     document.Add(table);
                 }
-                else
+
+                System.Threading.Thread.Sleep(500);
+                
+                if (!File.Exists(rutaDestino))
+                    throw new FileNotFoundException($"El archivo PDF no se creó: {rutaDestino}");
+
+                var fileInfo = new FileInfo(rutaDestino);
+                if (fileInfo.Length == 0)
+                    throw new InvalidOperationException("El archivo PDF está vacío");
+
+                MessageBox.Show("¡Reporte generado exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (abrirAlTerminar)
                 {
-                    document.Add(new Paragraph("No hay datos para mostrar en este reporte."));
+                    try
+                    {
+                        var psi = new ProcessStartInfo
+                        {
+                            FileName = rutaDestino,
+                            UseShellExecute = true
+                        };
+                        Process.Start(psi);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"No se pudo abrir el PDF automáticamente: {ex.Message}\n\nPDF guardado en: {rutaDestino}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al generar el PDF: " + ex.Message);
+                MessageBox.Show($"Error al generar PDF: {ex.Message}\n\nStack: {ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
 }
+
+
+
