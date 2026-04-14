@@ -36,7 +36,7 @@ namespace MiProyectoCSharp.UI
             var pnlHeader = new Panel { Dock = DockStyle.Top, Height = 60, BackColor = Color.FromArgb(100, 95, 85) };
             var lblTitulo = new Label 
             { 
-                Text = "ðŸ‘¥ GESTIá“N DE USUARIOS", 
+                Text = "GESTIÓN DE USUARIOS", 
                 ForeColor = Color.White, 
                 Font = new Font("Segoe UI", 14, FontStyle.Bold), 
                 Dock = DockStyle.Fill, 
@@ -92,7 +92,7 @@ namespace MiProyectoCSharp.UI
             var pnlMid = new Panel { Dock = DockStyle.Top, Height = 55 };
             btnEliminar = new Button 
             { 
-                Text = "ðŸ—‘ï¸ Eliminar Usuario Seleccionado", 
+                Text = "Eliminar Usuario Seleccionado", 
                 Location = new Point(0, 15), 
                 Size = new Size(250, 32),
                 BackColor = Color.FromArgb(140, 60, 60),

@@ -195,9 +195,26 @@ namespace MiProyectoCSharp.UI
         
         private void ItemSalir_Click(object? sender, EventArgs e)
         {
-            var bDao = new BitacoraDAO();
-            bDao.RegistrarSalida(SessionManager.Instance.BitacoraActivaId ?? 0);
-            Application.Exit();
+            // Registrar salida en bitácora
+            try
+            {
+                var bDao = new BitacoraDAO();
+                bDao.RegistrarSalida(SessionManager.Instance.BitacoraActivaId ?? 0);
+            }
+            catch { /* Ignorar si hay error */ }
+
+            // Limpiar sesión actual
+            SessionManager.Instance.CerrarSesion();
+
+            // Setear DialogResult PRIMERO para que ShowDialog() entienda que debe retornar
+            this.DialogResult = DialogResult.OK;
+            
+            // Cerrar de forma ASÍNCRONA (sin bloquear el message loop)
+            // Esto permite que eventos pendientes se procesen antes de cerrar
+            this.BeginInvoke(new Action(() =>
+            {
+                this.Close();
+            }));
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
